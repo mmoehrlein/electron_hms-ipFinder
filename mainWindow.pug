@@ -1,0 +1,44 @@
+doctype html
+html
+    head
+        link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css")
+
+        title HMS IPFinder
+    body
+        nav.blue-grey
+            .nav-wrapper
+                a.center.brand-logo HMS
+
+        .container
+            .row
+                .col.s8.card.z-depth-2
+                    .card-content
+                        //.row.card-title test
+                        .row
+                            form.col.s12
+                                .row
+                                    .col.s6.input-field
+                                        input#haus(type='text', placeholder='Haus')
+                                        //label(for='haus') Haus
+                                    .col.s6.input-field
+                                        input#zimmer(type='text', placeholder='Zimmer')
+                                        //label(for='zimmer') Zimmer
+                        .row.list
+                            ul#liste.collection
+                                li.collection-item numer1
+
+                #info.col.s3.offset-s1
+                    .card.z-depth-5
+                        .card-content
+                            .row.card-title INFO
+                            p from 10.143.98.80-87
+                    .card.z-depth-5
+                        .card-content
+                            .row.card-title INFO
+                            p from 10.143.98.80-87
+
+
+
+
+        script(src='mainWindow.js')
+
