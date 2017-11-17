@@ -10,6 +10,7 @@ liste.addEventListener('click', (e)=>{
     console.log(e.target.innerHTML.valueOf());
     const infocard = document.createElement('div');
     infocard.className = 'card z-depth-5';
+    //TODO add all classes
 });
 
 const hausbox = document.querySelector('#haus');
@@ -18,4 +19,8 @@ hausbox.addEventListener("change", ()=>{
     haus = hausbox.value;
     updateList(haus, zimmer);
 });
+
+function updateList(haus, zimmer){
+    console.log("update");
+}
 
