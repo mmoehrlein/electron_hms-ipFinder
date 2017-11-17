@@ -13,16 +13,9 @@ app.on('ready', () =>{
     //Create Window
     mainWindow = new BrowserWindow({});
 
-    /*// load html for loading animation
-    mainWindow.loadURL(url.format({
-        pathname: path.join(__dirname, 'loading-animation.pug'),
-        protocol: 'file:',
-        slashes: true
-    }));
-
     // load room data
     let ipData = loadHmsData();
-    mainWindow.webContents.send('data:ipdata', data);*/
+    mainWindow.webContents.send('data:ipdata', ipData);
 
     //load html
     mainWindow.loadURL(url.format({
@@ -108,20 +101,45 @@ function shortcut(shortcut){
 }
 
 function loadHmsData(){
-    let rawData = require('homs-data.json');
+    let rawData = require('./hms-data.json');
     let list = [];
-    for(house in rawData.houses){
-        for(room in house.rooms){
-            let startip = "";
-            let stopip = "";
-            list.append({
+    let startip = "000.000.000.000";
+    let lastip = "000.000.000.000";
+    console.log("for1");
+    for(let i = 0; i < rawData.houses.length; i++){
+        let house = rawData.houses[i];
+        console.log("for2");
+        console.log(house.rooms);
+        for(let j = 0; j < house.rooms.length; j++){
+            let room = house.rooms[j];
+            console.log(room);
+            console.log("for3");
+            if(typeof room.ipStart == 'undefined'){
+                let iparray = startip.split('.');
+                iparray[3] = (parseInt(iparray[3]) + 8).toString();
+                startip = iparray.join('.');
+
+                iparray[3] = (parseInt(iparray[3]) + 7).toString();
+                lastip = iparray.join('.');
+            }else{
+                startip = room.ipStart;
+
+                let iparray = startip.split('.');
+                iparray[3] = (parseInt(iparray[3]) + 7).toString();
+                lastip = iparray.join('.');
+
+            }
+
+            list.push({
                 house: house.house,
                 room: room.room,
                 ip: {
                     start: startip,
-                    stop: stopip
+                    stop: lastip
                 }
             })
         }
     }
+
+    return list;
 }
